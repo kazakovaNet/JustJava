@@ -2,25 +2,21 @@ package com.example.android.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Objects;
 
 /**
  * This app displays an order form to order coffee.
  */
 public class MainActivity extends AppCompatActivity {
 
-    int quantity = 2;
-    int pricePerCup = 5;
-    boolean hasWhippedCream;
-    boolean hasChocolate;
-    String name = "Bayer";
+    private int quantity = 2;
+    private boolean hasWhippedCream;
+    private boolean hasChocolate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         String enteredName = String.valueOf(nameEditText.getText());
 
         if (enteredName.equals("")) {
-            return name;
+            return "Bayer";
         } else {
             return enteredName;
         }
@@ -90,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
      * @return total price
      */
     private int calculatePrice() {
+        int pricePerCup = 5;
         return quantity * pricePerCup;
     }
 
@@ -99,14 +96,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private void displayQuantity(int quantity) {
         TextView quantityTextView = findViewById(R.id.quantity_textView);
-        quantityTextView.setText("" + quantity);
+        quantityTextView.setText(String.valueOf(quantity));
     }
 
     /**
      * This method is called when the plus button is clicked.
      */
     public void increment(View view) {
-        quantity = quantity + 1;
+        quantity++;
 
         displayQuantity(quantity);
     }
@@ -115,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the minus button is clicked.
      */
     public void decrement(View view) {
-        quantity = quantity - 1;
+        quantity--;
 
         displayQuantity(quantity);
     }
