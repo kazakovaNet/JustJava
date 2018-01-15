@@ -4,8 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 /**
  * This app displays an order form to order coffee.
@@ -14,45 +18,70 @@ public class MainActivity extends AppCompatActivity {
 
     int quantity = 2;
     int pricePerCup = 5;
+    boolean hasWhippedCream;
+    boolean hasChocolate;
+    String name = "Bayer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        displayMessage(createOrderSummary());
     }
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        CheckBox whippedCreamCheckBox = findViewById(R.id.whipped_cream_checkBox);
-        boolean hasWhippedCream = whippedCreamCheckBox.isChecked();
+        displayMessage(createOrderSummary());
+    }
 
-        Log.d("MainActivity", "Add whipped cream? " + String.valueOf(hasWhippedCream));
+    /**
+     * Сохраняет выбранные пользователем топпинги
+     */
+    private void getToppings() {
+        CheckBox whippedCreamCheckBox = findViewById(R.id.whipped_cream_checkBox);
+        hasWhippedCream = whippedCreamCheckBox.isChecked();
 
         CheckBox chocolateCheckBox = findViewById(R.id.chocolate_checkbox);
-        boolean hasChocolate = chocolateCheckBox.isChecked();
-
-        Log.d("MainActivity", "Add chocolate? " + String.valueOf(hasChocolate));
-
-        displayMessage(createOrderSummary(hasWhippedCream, hasChocolate));
+        hasChocolate = chocolateCheckBox.isChecked();
     }
 
     /**
      * Формирует итоговое сообщение о заказе
      *
-     * @param addWhippedCream выбран ли топпинг
-     * @param addChocolate
      * @return сообщение о заказе
      */
-    private String createOrderSummary(boolean addWhippedCream, boolean addChocolate) {
-        String priceMessage = "Name: Natalia Kazakova\n";
-        priceMessage += "Add whipped cream? " + String.valueOf(addWhippedCream) + "\n";
-        priceMessage += "Add chocolate? " + String.valueOf(addChocolate) + "\n";
+    private String createOrderSummary() {
+        getToppings();
+
+        String priceMessage = "Name: " + getName() + "\n";
+        priceMessage += "Add whipped cream? " + String.valueOf(hasWhippedCream) + "\n";
+        priceMessage += "Add chocolate? " + String.valueOf(hasChocolate) + "\n";
         priceMessage += "Quantity: " + quantity + "\n";
         priceMessage += "Total: " + calculatePrice() + " руб." + "\n\n";
         priceMessage += "Thank you!";
+
         return priceMessage;
+    }
+
+    /**
+     * Получает имя, введенное пользователем
+     *
+     * @return имя
+     */
+    private String getName() {
+        EditText nameEditText = findViewById(R.id.name_editText);
+        String enteredName = String.valueOf(nameEditText.getText());
+
+        if (enteredName.equals("")) {
+            return name;
+        } else {
+            return enteredName;
+        }
     }
 
     /**
