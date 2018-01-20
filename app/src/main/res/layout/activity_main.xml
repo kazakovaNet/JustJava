@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:cursorVisible="false"
                     android:hint="@string/name"
-                    android:inputType="text"
+                    android:inputType="textCapWords"
                     android:textColorHint="@color/colorBrownTransparent"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -185,43 +185,10 @@
                     android:textSize="24sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/price_label_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/buttons_layout"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="16dp"
-                android:background="#D94E342E"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/order_summary"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/colorWhite"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/order_summary_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/price_label_textView"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/white_rectangle"
-                android:paddingBottom="5dp"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:paddingTop="5dp"
-                android:textAlignment="center"
-                android:textColor="@color/colorBrown"
-                android:textSize="16sp" />
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/order_summary_textView"
+                android:layout_below="@id/buttons_layout"
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"

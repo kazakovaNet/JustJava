@@ -1,5 +1,6 @@
 package com.example.android.justjava;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -17,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     private int quantity = 2;
     private boolean hasWhippedCream;
     private boolean hasChocolate;
+    private final int MAX_COUNT = 100;
+    private final int MIN_COUNT = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +29,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-
-        displayMessage(createOrderSummary());
     }
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        displayMessage(createOrderSummary());
+        String priceMessage = createOrderSummary();
+
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        // добавляем текст для передачи
+        sendIntent.putExtra(Intent.EXTRA_TEXT, priceMessage);
+        sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"kazakova.net@yandex.ru"});
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "New order coffee");
+        // указываем тип передаваемых данных
+        sendIntent.setType("text/plain");
+        // запускаем активити
+        startActivity(sendIntent);
     }
 
     /**
@@ -87,6 +101,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private int calculatePrice() {
         int pricePerCup = 5;
+        int priceWhippedCream = 1;
+        int priceChocolate = 2;
+
+        if (hasWhippedCream) {
+            pricePerCup += priceWhippedCream;
+        }
+
+        if (hasChocolate) {
+            pricePerCup += priceChocolate;
+        }
+
         return quantity * pricePerCup;
     }
 
@@ -103,25 +128,25 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the plus button is clicked.
      */
     public void increment(View view) {
-        quantity++;
+        if (quantity == MAX_COUNT) {
+            Toast.makeText(this, "Вы не можете заказать больше 100 чашек!", Toast.LENGTH_SHORT).show();
 
-        displayQuantity(quantity);
+            return;
+        }
+
+        displayQuantity(++quantity);
     }
 
     /**
      * This method is called when the minus button is clicked.
      */
     public void decrement(View view) {
-        quantity--;
+        if (quantity == MIN_COUNT) {
+            Toast.makeText(this, "Вы не можете заказать меньше 1 чашки!", Toast.LENGTH_SHORT).show();
 
-        displayQuantity(quantity);
-    }
+            return;
+        }
 
-    /**
-     * This method displays the given text on the screen.
-     */
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = findViewById(R.id.order_summary_textView);
-        orderSummaryTextView.setText(message);
+        displayQuantity(--quantity);
     }
 }
