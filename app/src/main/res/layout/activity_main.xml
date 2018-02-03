@@ -34,13 +34,13 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
-                android:background="#D94E342E"
+                android:background="@color/accent"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="@string/your_name"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/icons"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -64,7 +64,7 @@
                     android:cursorVisible="false"
                     android:hint="@string/name"
                     android:inputType="textCapWords"
-                    android:textColorHint="@color/colorBrownTransparent"
+                    android:textColorHint="@color/secondary_text"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -76,13 +76,13 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
-                android:background="#D94E342E"
+                android:background="@color/accent"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="@string/toppings"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/icons"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -106,7 +106,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="@string/whipped_cream"
-                    android:textColor="@color/colorBrown"
+                    android:textColor="@color/primary_text"
                     android:textSize="16sp" />
 
                 <CheckBox
@@ -116,7 +116,7 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="@string/chocolate"
-                    android:textColor="@color/colorBrown"
+                    android:textColor="@color/primary_text"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -128,13 +128,13 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
-                android:background="#D94E342E"
+                android:background="@color/accent"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="@string/quantity"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/icons"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -159,7 +159,7 @@
                     android:onClick="decrement"
                     android:text="@string/minus"
                     android:textAllCaps="true"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/icons"
                     android:textSize="24sp" />
 
                 <TextView
@@ -171,7 +171,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:text="@string/quantity_2"
-                    android:textColor="@color/colorBrown"
+                    android:textColor="@color/secondary_text"
                     android:textSize="35sp" />
 
                 <Button
@@ -181,7 +181,7 @@
                     android:onClick="increment"
                     android:text="@string/plus"
                     android:textAllCaps="true"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/icons"
                     android:textSize="24sp" />
             </LinearLayout>
 
@@ -193,13 +193,13 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="32dp"
-                android:background="@color/colorOrange"
+                android:background="@color/accent"
                 android:onClick="submitOrder"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="@string/order"
                 android:textAllCaps="true"
-                android:textColor="#ffffff"
+                android:textColor="@color/icons"
                 android:textSize="24sp" />
         </RelativeLayout>
     </ScrollView>

@@ -1,0 +1,20 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Просто Java</string>
+    <string name="name">Имя</string>
+    <string name="toppings">Добавки</string>
+    <string name="whipped_cream">Взбитые сливки</string>
+    <string name="chocolate">Шоколад</string>
+    <string name="quantity">Количество</string>
+    <string name="minus">-</string>
+    <string name="quantity_2">2</string>
+    <string name="plus">+</string>
+    <string name="order">Заказать</string>
+    <string name="your_name">Ваше имя</string>
+    <string name="order_summary_name">Имя: <xliff:g example="Анна" id="name">%s</xliff:g></string>
+    <string name="thank_you">Спасибо за заказ!</string>
+    <string name="order_summary_add_chocolate">Добавить шоколад</string>
+    <string name="order_summary_whipped_cream">Добавить взбитые сливки</string>
+    <string name="order_summary_quantity">Количество: <xliff:g example="2" id="quantity">%d</xliff:g></string>
+    <string name="order_summary_price">Итого: <xliff:g example="10.00" id="price">%s</xliff:g></string>
+    <string name="order_email_subject">Just Java order for <xliff:g id="name" example="Анна">%s</xliff:g></string>
+</resources>

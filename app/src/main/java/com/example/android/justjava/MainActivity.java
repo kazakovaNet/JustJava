@@ -1,6 +1,7 @@
 package com.example.android.justjava;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
+
 
 /**
  * This app displays an order form to order coffee.
@@ -17,8 +20,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private int quantity = 2;
-    private boolean hasWhippedCream;
-    private boolean hasChocolate;
+    private boolean addWhippedCream;
+    private boolean addChocolate;
     private final int MAX_COUNT = 100;
     private final int MIN_COUNT = 1;
 
@@ -38,15 +41,17 @@ public class MainActivity extends AppCompatActivity {
         String priceMessage = createOrderSummary();
 
         Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.setAction(Intent.ACTION_SENDTO);
+        // only email apps should handle this
+        sendIntent.setData(Uri.parse("mailto:"));
         // добавляем текст для передачи
         sendIntent.putExtra(Intent.EXTRA_TEXT, priceMessage);
         sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"kazakova.net@yandex.ru"});
-        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "New order coffee");
-        // указываем тип передаваемых данных
-        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.order_email_subject, getName()));
         // запускаем активити
-        startActivity(sendIntent);
+        if (sendIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(sendIntent);
+        }
     }
 
     /**
@@ -54,10 +59,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private void getToppings() {
         CheckBox whippedCreamCheckBox = findViewById(R.id.whipped_cream_checkBox);
-        hasWhippedCream = whippedCreamCheckBox.isChecked();
+        addWhippedCream = whippedCreamCheckBox.isChecked();
 
         CheckBox chocolateCheckBox = findViewById(R.id.chocolate_checkbox);
-        hasChocolate = chocolateCheckBox.isChecked();
+        addChocolate = chocolateCheckBox.isChecked();
     }
 
     /**
@@ -68,12 +73,20 @@ public class MainActivity extends AppCompatActivity {
     private String createOrderSummary() {
         getToppings();
 
-        String priceMessage = "Name: " + getName() + "\n";
-        priceMessage += "Add whipped cream? " + String.valueOf(hasWhippedCream) + "\n";
-        priceMessage += "Add chocolate? " + String.valueOf(hasChocolate) + "\n";
-        priceMessage += "Quantity: " + quantity + "\n";
-        priceMessage += "Total: " + calculatePrice() + " руб." + "\n\n";
-        priceMessage += "Thank you!";
+        String priceMessage = getString(R.string.order_summary_name, getName()) + "\n";
+
+        if (addWhippedCream) {
+            priceMessage += getString(R.string.order_summary_whipped_cream) + "\n";
+        }
+
+        if (addChocolate) {
+            priceMessage += getString(R.string.order_summary_add_chocolate) + "\n";
+        }
+
+        priceMessage += getString(R.string.order_summary_quantity, quantity) + "\n";
+        priceMessage += getString(R.string.order_summary_price,
+                NumberFormat.getCurrencyInstance().format(calculatePrice())) + "\n\n";
+        priceMessage += getString(R.string.thank_you);
 
         return priceMessage;
     }
@@ -104,11 +117,11 @@ public class MainActivity extends AppCompatActivity {
         int priceWhippedCream = 1;
         int priceChocolate = 2;
 
-        if (hasWhippedCream) {
+        if (addWhippedCream) {
             pricePerCup += priceWhippedCream;
         }
 
-        if (hasChocolate) {
+        if (addChocolate) {
             pricePerCup += priceChocolate;
         }
 
